@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -124,8 +125,40 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		Map<Character,Integer> points = new Map<Character,Integer>
-		return 0;
+		Map<Character, Integer> points = new HashMap<Character, Integer>() {{
+			put('A',1);
+			put('B',3);
+			put('C',3);
+			put('D',2);
+			put('E',1);
+			put('F',4);
+			put('G',2);
+			put('H',4);
+			put('I',1);
+			put('J',8);
+			put('K',5);
+			put('L',1);
+			put('M',3);
+			put('N',1);
+			put('O',1);
+			put('P',3);
+			put('Q',10);
+			put('R',1);
+			put('S',1);
+			put('T',1);
+			put('U',1);
+			put('V',1);
+			put('W',4);
+			put('X',8);
+			put('Y',4);
+			put('Z',10);
+		}};
+		int wordPoints=0;
+		for(char letter:string.toUpperCase().toCharArray()) {
+			wordPoints+=points.get(letter);
+		}
+		
+		return wordPoints;
 	}
 
 	/**
