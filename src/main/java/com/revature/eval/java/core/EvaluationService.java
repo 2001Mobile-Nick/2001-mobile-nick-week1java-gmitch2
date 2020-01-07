@@ -3,7 +3,6 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 
 public class EvaluationService {
 
@@ -104,7 +103,6 @@ public class EvaluationService {
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
 			return (this.sideOne!=this.sideTwo && this.sideOne!=this.sideTwo && this.sideTwo!=this.sideThree);
 		}
 
@@ -126,7 +124,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
+		Map<Character,Integer> points = new Map<Character,Integer>
 		return 0;
 	}
 
