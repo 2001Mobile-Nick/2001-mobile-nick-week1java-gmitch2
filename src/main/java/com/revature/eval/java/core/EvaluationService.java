@@ -3,6 +3,7 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class EvaluationService {
 
@@ -30,8 +31,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		boolean newWord=true;
+		StringBuilder acronym = new StringBuilder();
+		char[] input = phrase.toCharArray();
+		for(int i=0; i<input.length; i++) {
+			if(newWord) {
+				acronym.append(input[i]);
+				newWord=false;
+			}
+			if(input[i]==' ' || input[i]=='-') {
+				newWord=true;
+			}
+		}
+		return new String(acronym).toUpperCase();
 	}
 
 	/**
