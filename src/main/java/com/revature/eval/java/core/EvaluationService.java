@@ -419,8 +419,22 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder rotatedString = new StringBuilder("");
+			for(int i=0; i<string.length();i++) {
+				char currChar = string.charAt(i);
+				if(Character.isLowerCase(currChar)) {
+					int charNum=currChar-97;
+					char rotatedChar=(char)(((charNum+key)%26)+97);
+					rotatedString.append(rotatedChar);
+				} else if(Character.isUpperCase(currChar)) {
+					int charNum=currChar-65;
+					char rotatedChar=(char)(((charNum+key)%26)+65);
+					rotatedString.append(rotatedChar);
+				} else {
+					rotatedString.append(currChar);
+				}
+			}
+			return rotatedString.toString();
 		}
 
 	}
@@ -437,9 +451,25 @@ public class EvaluationService {
 	 * @param i
 	 * @return
 	 */
-	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public int calculateNthPrime(int i) throws IllegalArgumentException {
+		if(i==0) {
+			throw new IllegalArgumentException();
+		}
+		int primeCount=0;
+		int currNum=1;
+		int k;
+		while (primeCount<i) {
+			currNum++;
+			for(k=2;k<currNum;k++) {
+				if(currNum%k==0) {
+					break;
+				}
+			}
+			if(k==currNum) {
+				primeCount++;
+			}
+		}
+		return currNum;
 	}
 
 	/**
