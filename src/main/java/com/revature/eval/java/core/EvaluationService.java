@@ -192,10 +192,13 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
+	public String cleanPhoneNumber(String string) throws IllegalArgumentException {
 		String phoneNumber=string.replaceAll("[^0-9]", "");
 		if(phoneNumber.charAt(0)=='1') {
 			phoneNumber=phoneNumber.substring(1);
+		}
+		if(phoneNumber.length()!=10) {
+			throw new IllegalArgumentException("Invalid phone number");
 		}
 		return phoneNumber;
 	}
