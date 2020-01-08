@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -318,8 +319,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] words = string.split(" ");
+		StringBuilder pigWords = new StringBuilder("");
+		for(int i = 0; i<words.length ; i++) {
+			String[] vowelBreak = words[i].split("[aeiou]",2);
+			if(vowelBreak[0].isEmpty()) {
+				pigWords.append(words[i]+"ay ");
+			} else if(vowelBreak[0].toUpperCase().equals("Q")) {
+				pigWords.append(words[i].substring(2)+"quay ");
+			} else {
+				pigWords.append(words[i].substring(vowelBreak[0].length())+vowelBreak[0]+"ay ");
+			}
+		}
+		return pigWords.toString().trim();
 	}
 
 	/**
