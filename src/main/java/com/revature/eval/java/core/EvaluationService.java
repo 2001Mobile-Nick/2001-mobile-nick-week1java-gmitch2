@@ -505,8 +505,26 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			String onlyLettersAndNumbers = string.replaceAll("[^a-zA-Z0-9]", "");
+			StringBuilder encodedString = new StringBuilder("");
+			for(char c:onlyLettersAndNumbers.toCharArray()) {
+				if(Character.isLowerCase(c)) {
+					int charNum=c-97;
+					char rotatedChar=(char)((25-charNum)+97);
+					encodedString.append(rotatedChar);
+				} else if(Character.isUpperCase(c)) {
+					int charNum=c-65;
+					char rotatedChar=(char)((25-charNum)+97);
+					encodedString.append(rotatedChar);
+				} else {
+					encodedString.append(c);
+				}
+			}
+			
+			for(int i=(encodedString.length()/5)*5;i>0;i-=5) {
+				encodedString.insert(i, ' ');
+			}
+			return encodedString.toString().trim();
 		}
 
 		/**
@@ -516,8 +534,18 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			String noSpaces = string.replaceAll(" ", "");
+			StringBuilder decodedString = new StringBuilder("");
+			for(char c:noSpaces.toCharArray()) {
+				if(Character.isLowerCase(c)) {
+					int charNum=c-97;
+					char rotatedChar=(char)((25-charNum)+97);
+					decodedString.append(rotatedChar);
+				} else {
+					decodedString.append(c);
+				}
+			}
+			return decodedString.toString();
 		}
 	}
 
@@ -544,8 +572,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		String onlyNumbersOrX = string.replaceAll("[^0-9X]", "");
+		if(onlyNumbersOrX.length()!=10) {
+			return false;
+		}
+		int total=0;
+		for(int i = 0; i<onlyNumbersOrX.length() ; i++) {
+			int digit;
+			if(onlyNumbersOrX.charAt(i)=='X') {
+				digit=10;
+			} else {
+				digit=Integer.valueOf(onlyNumbersOrX.substring(i,(i+1)));
+			}
+			total+=(digit*(10-i));
+		}
+		return (total%11)==0;
 	}
 
 	/**
