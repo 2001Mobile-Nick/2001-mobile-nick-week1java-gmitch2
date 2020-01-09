@@ -1,5 +1,10 @@
 package com.revature.eval.java.core;
 
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -603,8 +608,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		boolean[] letterList = new boolean[26];
+		for(char c:string.toUpperCase().replaceAll("[^A-Z]","").toCharArray()) {
+			int charNum = c-65;
+			letterList[charNum]=true;
+		}
+		for(boolean b:letterList) {
+			if(!b) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -616,7 +630,14 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
+//		if(!given.isSupported(ChronoUnit.SECONDS)) {
+//			given=given.with(ChronoField.SECOND_OF_MINUTE, 0);
+//		}
+		String timeString = given.toString().replaceAll("T", " ");
+		System.out.println(timeString);
+		Timestamp input = Timestamp.valueOf(timeString);
+//		return input.toLocalDateTime().plus(Duration.ofSeconds(1000000000));
+
 		return null;
 	}
 
