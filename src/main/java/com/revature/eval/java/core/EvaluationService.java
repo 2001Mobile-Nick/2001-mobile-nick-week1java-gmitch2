@@ -1,6 +1,8 @@
 package com.revature.eval.java.core;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -635,12 +637,20 @@ public class EvaluationService {
 //		if(!given.isSupported(ChronoUnit.SECONDS)) {
 //			given=given.with(ChronoField.SECOND_OF_MINUTE, 0);
 //		}
-		String timeString = given.toString().replaceAll("T", " ");
-		// System.out.println(timeString);
-		Timestamp input = Timestamp.valueOf(timeString);
+//		String timeString = given.toString().replaceAll("T", " ");
+//		// System.out.println(timeString);
+//		Timestamp input = Timestamp.valueOf(timeString);
 //		return input.toLocalDateTime().plus(Duration.ofSeconds(1000000000));
+		LocalDateTime input;
+		try {
+			input = (LocalDateTime) given;
+		} catch (Exception e) {
+			LocalDate inputDate = (LocalDate) given;
+			input = inputDate.atStartOfDay();
+		}
+		input = input.plus(1000000000, ChronoUnit.SECONDS);
 
-		return null;
+		return input;
 	}
 
 	/**
@@ -717,20 +727,20 @@ public class EvaluationService {
 		if (!string.matches("[0-9 ]*")) {
 			return false;
 		}
-		
+
 		int total = 0;
 		String noSpaces = string.replaceAll(" ", "");
-		for(int c = noSpaces.length();c>0;c--) {
-			int i = Integer.valueOf(noSpaces.substring(c-1,c));
-			if((c-noSpaces.length())%2==-1) {
-				i=i*2;
-				if(i>9) {
-					i=i-9;
+		for (int c = noSpaces.length(); c > 0; c--) {
+			int i = Integer.valueOf(noSpaces.substring(c - 1, c));
+			if ((c - noSpaces.length()) % 2 == -1) {
+				i = i * 2;
+				if (i > 9) {
+					i = i - 9;
 				}
 			}
-			total=total+i;
+			total = total + i;
 		}
-		return (total%10)==0;
+		return (total % 10) == 0;
 	}
 
 	/**
@@ -761,31 +771,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		Scanner sc = new Scanner(string.substring(8,string.length()-1)).useDelimiter(" ");
+		Scanner sc = new Scanner(string.substring(8, string.length() - 1)).useDelimiter(" ");
 		int firstNum;
 		int secondNum;
-		if(string.contains("plus")) {
+		if (string.contains("plus")) {
 			firstNum = sc.nextInt();
 			sc.next();
 			secondNum = sc.nextInt();
-			return firstNum+secondNum;
-		} else if(string.contains("minus")) {
+			return firstNum + secondNum;
+		} else if (string.contains("minus")) {
 			firstNum = sc.nextInt();
 			sc.next();
 			secondNum = sc.nextInt();
-			return firstNum-secondNum;
-		} else if(string.contains("multiplied")) {
-			firstNum = sc.nextInt();
-			sc.next();
-			sc.next();
-			secondNum = sc.nextInt();
-			return firstNum*secondNum;
-		} else if(string.contains("divided")) {
+			return firstNum - secondNum;
+		} else if (string.contains("multiplied")) {
 			firstNum = sc.nextInt();
 			sc.next();
 			sc.next();
 			secondNum = sc.nextInt();
-			return firstNum/secondNum;
+			return firstNum * secondNum;
+		} else if (string.contains("divided")) {
+			firstNum = sc.nextInt();
+			sc.next();
+			sc.next();
+			secondNum = sc.nextInt();
+			return firstNum / secondNum;
 		}
 		return 0;
 	}
