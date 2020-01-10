@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class EvaluationService {
@@ -719,7 +720,6 @@ public class EvaluationService {
 		
 		int total = 0;
 		String noSpaces = string.replaceAll(" ", "");
-		System.out.println(noSpaces);
 		for(int c = noSpaces.length();c>0;c--) {
 			int i = Integer.valueOf(noSpaces.substring(c-1,c));
 			if((c-noSpaces.length())%2==-1) {
@@ -728,10 +728,8 @@ public class EvaluationService {
 					i=i-9;
 				}
 			}
-			System.out.println(i);
 			total=total+i;
 		}
-		System.out.println(total);
 		return (total%10)==0;
 	}
 
@@ -763,7 +761,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		Scanner sc = new Scanner(string.substring(8,string.length()-1)).useDelimiter(" ");
+		int firstNum;
+		int secondNum;
+		if(string.contains("plus")) {
+			firstNum = sc.nextInt();
+			sc.next();
+			secondNum = sc.nextInt();
+			return firstNum+secondNum;
+		} else if(string.contains("minus")) {
+			firstNum = sc.nextInt();
+			sc.next();
+			secondNum = sc.nextInt();
+			return firstNum-secondNum;
+		} else if(string.contains("multiplied")) {
+			firstNum = sc.nextInt();
+			sc.next();
+			sc.next();
+			secondNum = sc.nextInt();
+			return firstNum*secondNum;
+		} else if(string.contains("divided")) {
+			firstNum = sc.nextInt();
+			sc.next();
+			sc.next();
+			secondNum = sc.nextInt();
+			return firstNum/secondNum;
+		}
 		return 0;
 	}
 
