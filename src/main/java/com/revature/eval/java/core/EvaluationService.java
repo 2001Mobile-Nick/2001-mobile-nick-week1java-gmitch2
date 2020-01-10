@@ -667,11 +667,11 @@ public class EvaluationService {
 				n = s * c;
 			}
 		}
-		
+
 		Iterator<Integer> setIter = multiplesSet.iterator();
-		while(setIter.hasNext()) {
+		while (setIter.hasNext()) {
 			int nextInt = setIter.next();
-			total+=nextInt;
+			total += nextInt;
 		}
 		return total;
 	}
@@ -713,8 +713,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		if (!string.matches("[0-9 ]*")) {
+			return false;
+		}
+		
+		int total = 0;
+		String noSpaces = string.replaceAll(" ", "");
+		System.out.println(noSpaces);
+		for(int c = noSpaces.length();c>0;c--) {
+			int i = Integer.valueOf(noSpaces.substring(c-1,c));
+			if((c-noSpaces.length())%2==-1) {
+				i=i*2;
+				if(i>9) {
+					i=i-9;
+				}
+			}
+			System.out.println(i);
+			total=total+i;
+		}
+		System.out.println(total);
+		return (total%10)==0;
 	}
 
 	/**
